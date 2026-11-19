@@ -28,21 +28,29 @@ if [ -z "${APPLE_SIGNING_IDENTITY:-}" ]; then
   warn "APPLE_SIGNING_IDENTITY is not set: the app will be unsigned"
 fi
 
-log "building the universal app bundle and dmg"
-(cd "$TAURI_DIR" && run cargo tauri build --target universal-apple-darwin --bundles app,dmg)
+log "building the universal app bundle"
+(cd "$TAURI_DIR" && run cargo tauri build --target universal-apple-darwin --bundles app)
 
 bundle="$TAURI_DIR/target/universal-apple-darwin/release/bundle"
 mkdir -p "$DIST"
-dmg="$(find "$bundle/dmg" -name '*.dmg' -print -quit 2>/dev/null || true)"
+dmg_out="$DIST/OpenStats_${ver}_universal.dmg"
 if [ -n "${OPENSTATS_DRY_RUN:-}" ]; then
-  log "dry run: would copy $bundle/dmg/*.dmg to $DIST/OpenStats_${ver}_universal.dmg"
+  log "dry run: would wrap $bundle/macos/OpenStats.app in $dmg_out"
   exit 0
 fi
-[ -n "$dmg" ] || die "Tauri produced no .dmg under $bundle/dmg"
-cp "$dmg" "$DIST/OpenStats_${ver}_universal.dmg"
+# The disk image is made here with hdiutil rather than by Tauri's dmg bundler, which styles the
+# window through Finder (AppleScript) and fails on machines without a GUI session.
+app="$bundle/macos/OpenStats.app"
+[ -d "$app" ] || die "Tauri produced no app bundle at $app"
+stage="$(mktemp -d)"
+cp -R "$app" "$stage/"
+ln -s /Applications "$stage/Applications"
+rm -f "$dmg_out"
+hdiutil create -volname "OpenStats" -srcfolder "$stage" -ov -format UDZO "$dmg_out" >/dev/null
+rm -rf "$stage"
 
 # Verify what was built: the disk image is intact and the executable holds both architectures.
-hdiutil verify "$DIST/OpenStats_${ver}_universal.dmg" >/dev/null
+hdiutil verify "$dmg_out" >/dev/null
 exe="$(find "$bundle/macos/OpenStats.app/Contents/MacOS" -type f -perm -u+x -print -quit 2>/dev/null || true)"
 if [ -n "$exe" ]; then
   archs="$(lipo -archs "$exe")"
