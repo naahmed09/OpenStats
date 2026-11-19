@@ -1,0 +1,19 @@
+# Local macros: MACRO name args ... MEND
+MACRO
+Scale col factor
+  MCOLUMN col
+  MCONSTANT factor
+  col = col * factor
+MEND
+
+MACRO Offset col by
+  MCOLUMN col
+  MCONSTANT by
+  LET col = col + by
+MEND
+
+SET C1
+1 2 3 4
+END
+%Scale C1 10
+%Offset C1 5

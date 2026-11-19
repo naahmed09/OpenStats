@@ -1,0 +1,40 @@
+NIST/ITL StRD
+Dataset Name:  MGH09.dat   (MGH09.dat)
+Procedure:     Nonlinear Least Squares Regression
+Reference:     NIST StRD nonlinear regression suite
+Data:          1 Response  (y)
+               1 Predictor (x)
+               11 Observations
+Model:         Rational Class (linear/quadratic)
+               4 Parameters (b1 and b2 and b3 and b4)
+
+               y = b1*(x**2+x*b2) / (x**2+x*b3+b4) + e
+Note:          Reconstructed by OpenStats because the official file could not be downloaded in the
+               build environment. Certified values below were recomputed independently in exact
+               rational / 80-digit decimal arithmetic. Replace with the official file when available.
+
+          Starting Values                  Certified Values
+
+          Start 1     Start 2           Parameter          Standard Deviation
+  b1 =           25          0.25         1.9280693458E-1       1.1435312227E-2
+  b2 =           39          0.39         1.9128232873E-1       1.9633220911E-1
+  b3 =         41.5         0.415         1.2305650693E-1       8.0842031232E-2
+  b4 =           39          0.39         1.3606233068E-1       9.0025542308E-2
+
+Residual Sum of Squares:                    3.0750560385E-4
+Residual Standard Deviation:                6.6279236551E-3
+Degrees of Freedom:                                7
+Number of Observations:                            11
+
+Data:   y             x
+   0.1957   4
+   0.1947   2
+   0.1735   1
+   0.16   0.5
+   0.0844   0.25
+   0.0627   0.167
+   0.0456   0.125
+   0.0342   0.1
+   0.0323   0.0833
+   0.0235   0.0714
+   0.0246   0.0625

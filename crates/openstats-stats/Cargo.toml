@@ -1,0 +1,18 @@
+[package]
+name = "openstats-stats"
+description = "OpenStats statistical procedures: descriptive statistics, hypothesis tests, power and sample size, tolerance intervals, model formulas, linear regression, quality/SPC (control charts incl. time-weighted, Laney, rare-event and Hotelling T², capability with confidence intervals), ANOVA, measurement systems analysis (Gage R&R, linearity and bias, attribute agreement), design of experiments (factorial, response-surface and Taguchi designs, desirability optimisation) and the session report model (std only)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+readme.workspace = true
+
+[dependencies]
+# std only; the numerical kernel is OpenStats's own. Missing values are NaN,
+# the same convention as openstats-core numeric columns.
+openstats-math = { workspace = true }
+
+[lints]
+workspace = true

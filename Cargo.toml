@@ -1,0 +1,62 @@
+[workspace]
+resolver = "2"
+# Crates are added to this list as each phase lands:
+#   Phase 1: openstats-core, openstats-math
+#   Phase 2-3: openstats-stats, openstats-script
+#   Phase 4: openstats-charts, openstats-ui (wasm), openstats-desktop (Tauri), xtask
+members = [
+    "crates/openstats-core",
+    "crates/openstats-math",
+    "crates/openstats-stats",
+    "crates/openstats-script",
+    "crates/openstats-charts",
+    "crates/openstats-ui",
+    "crates/openstats-host",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.82"
+license = "Apache-2.0 OR MIT"
+authors = ["The OpenStats Contributors"]
+repository = "https://github.com/openstats/openstats"
+homepage = "https://github.com/openstats/openstats"
+readme = "README.md"
+keywords = ["statistics", "spc", "doe", "quality"]
+categories = ["science", "mathematics"]
+
+[workspace.dependencies]
+openstats-core = { path = "crates/openstats-core", version = "1.0.0" }
+openstats-math = { path = "crates/openstats-math", version = "1.0.0", default-features = false }
+openstats-stats = { path = "crates/openstats-stats", version = "1.0.0" }
+openstats-charts = { path = "crates/openstats-charts", version = "1.0.0" }
+openstats-script = { path = "crates/openstats-script", version = "1.0.0" }
+openstats-ui = { path = "crates/openstats-ui", version = "1.0.0" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+float_cmp = "allow"
+needless_range_loop = "allow"
+too_many_arguments = "allow"
+excessive_precision = "allow"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+debug = false
+
+# Size-optimised profile used for the WebAssembly bundle (Phase 4).
+[profile.web]
+inherits = "release"
+opt-level = "z"
+lto = "fat"
+panic = "abort"
+
+[profile.test]
+opt-level = 1

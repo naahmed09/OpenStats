@@ -1,0 +1,7 @@
+# Implicit declarations: no LET, no MCONSTANT / MCOLUMN
+K1 = 5
+total = K1 * 2
+C1 = total
+'Doubled' = C1 * 2
+words = 'implicit text'
+K2 = total + 1

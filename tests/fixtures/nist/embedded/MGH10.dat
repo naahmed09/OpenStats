@@ -1,0 +1,44 @@
+NIST/ITL StRD
+Dataset Name:  MGH10.dat   (MGH10.dat)
+Procedure:     Nonlinear Least Squares Regression
+Reference:     NIST StRD nonlinear regression suite
+Data:          1 Response  (y)
+               1 Predictor (x)
+               16 Observations
+Model:         Exponential Class
+               3 Parameters (b1 and b2 and b3)
+
+               y = b1 * exp[b2/(x+b3)] + e
+Note:          Reconstructed by OpenStats because the official file could not be downloaded in the
+               build environment. Certified values below were recomputed independently in exact
+               rational / 80-digit decimal arithmetic. Replace with the official file when available.
+
+          Starting Values                  Certified Values
+
+          Start 1     Start 2           Parameter          Standard Deviation
+  b1 =            2          0.02         5.6096364710E-3       1.5687892471E-4
+  b2 =       400000          4000         6.1813463463E+3       2.3309021107E+1
+  b3 =        25000           250         3.4522363462E+2       7.8486103508E-1
+
+Residual Sum of Squares:                    8.7945855171E+1
+Residual Standard Deviation:                2.6009740065E+0
+Degrees of Freedom:                                13
+Number of Observations:                            16
+
+Data:   y             x
+   34780   50
+   28610   55
+   23650   60
+   19630   65
+   16370   70
+   13720   75
+   11540   80
+   9744   85
+   8261   90
+   7030   95
+   6005   100
+   5147   105
+   4427   110
+   3820   115
+   3307   120
+   2872   125

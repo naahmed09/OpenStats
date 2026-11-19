@@ -1,0 +1,20 @@
+NIST/ITL StRD
+Dataset Name:  NumAcc1.dat   (NumAcc1.dat)
+Procedure:     Univariate Summary Statistics
+Reference:     Simon, S. D. and Lesage, J. P. (1989), accuracy of statistical software
+Data:          1 Response Variable (y)
+               3 Observations
+Note:          Reconstructed by OpenStats because the official file could not be downloaded in the
+               build environment. Certified values below were recomputed independently in exact
+               rational / 80-digit decimal arithmetic. Replace with the official file when available.
+
+Certified Values:
+
+Sample Mean                      (\bar{Y}):    1.00000020000000E+7
+Sample Standard Deviation        (s_y):          1.00000000000000E+0
+Sample Autocorrelation Coefficient (r_1):        -5.00000000000000E-1
+
+Data:   Y
+10000001
+10000003
+10000002

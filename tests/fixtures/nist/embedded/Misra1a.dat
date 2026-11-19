@@ -1,0 +1,41 @@
+NIST/ITL StRD
+Dataset Name:  Misra1a.dat   (Misra1a.dat)
+Procedure:     Nonlinear Least Squares Regression
+Reference:     NIST StRD nonlinear regression suite
+Data:          1 Response  (y)
+               1 Predictor (x)
+               14 Observations
+Model:         Exponential Class
+               2 Parameters (b1 and b2)
+
+               y = b1*(1-exp[-b2*x]) + e
+Note:          Reconstructed by OpenStats because the official file could not be downloaded in the
+               build environment. Certified values below were recomputed independently in exact
+               rational / 80-digit decimal arithmetic. Replace with the official file when available.
+
+          Starting Values                  Certified Values
+
+          Start 1     Start 2           Parameter          Standard Deviation
+  b1 =          500           250         2.3894212918E+2       2.7070075241E+0
+  b2 =       0.0001        0.0005         5.5015643181E-4       7.2668688436E-6
+
+Residual Sum of Squares:                    1.2455138894E-1
+Residual Standard Deviation:                1.0187876330E-1
+Degrees of Freedom:                                12
+Number of Observations:                            14
+
+Data:   y             x
+   10.07   77.6
+   14.73   114.9
+   17.94   141.1
+   23.93   190.8
+   29.61   239.9
+   35.18   289.0
+   40.02   332.8
+   44.82   378.4
+   50.76   434.8
+   55.05   477.3
+   61.01   536.8
+   66.4   593.1
+   75.47   689.1
+   81.78   760.0

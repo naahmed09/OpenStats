@@ -1,0 +1,40 @@
+NIST/ITL StRD
+Dataset Name:  NoInt2.dat   (NoInt2.dat)
+Procedure:     Linear Least Squares Regression
+Reference:     Wampler (1970)
+Data:          1 Response  (y)
+               1 Predictor(s) (x)
+               3 Observations
+Model:         Linear Class
+               1 Parameters (B1)
+
+               y = B1*x + e
+Note:          Reconstructed by OpenStats because the official file could not be downloaded in the
+               build environment. Certified values below were recomputed independently in exact
+               rational / 80-digit decimal arithmetic. Replace with the official file when available.
+
+Certified Regression Statistics
+
+                                          Standard Deviation
+     Parameter          Estimate             of Estimate
+
+        B1        7.27272727272727E-1     4.20827318078432E-2
+
+Residual
+Standard Deviation     3.69274472937998E-1
+
+R-Squared              9.93348115299335E-1
+
+Certified Analysis of Variance Table
+
+Source of     Degrees of      Sums of               Mean
+Variation      Freedom        Squares              Squares             F Statistic
+
+Regression       1      4.07272727272727E+1      4.07272727272727E+1      2.98666666666667E+2
+Residual        2      2.72727272727273E-1      1.36363636363636E-1
+
+
+Data:   y    x
+   3   4
+   4   5
+   4   6

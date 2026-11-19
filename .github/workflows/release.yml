@@ -1,0 +1,62 @@
+# Builds the release artefacts when a version tag is pushed (v1.0.0, ...).
+# NOTE: written but not run in the environment that produced it. Signing is optional; set the
+# secrets named in scripts/package-macos.sh and scripts/package-windows.ps1 to enable it.
+name: release
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup target add wasm32-unknown-unknown
+      - run: scripts/release.sh --web-only
+      - uses: actions/upload-artifact@v4
+        with: { name: web, path: dist/openstats-web-* }
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo install tauri-cli --version '^2' --locked
+      - run: rustup target add wasm32-unknown-unknown
+      - run: scripts/release.sh --skip-checks
+        env:
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      - uses: actions/upload-artifact@v4
+        with: { name: macos, path: dist/*.dmg }
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo install tauri-cli --version "^2" --locked
+      - run: rustup target add wasm32-unknown-unknown
+      - run: bash scripts/build-web.sh
+      - run: pwsh scripts/package-windows.ps1 -Arch x64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            dist/*.msi
+            dist/*-setup.exe
+
+  publish:
+    needs: [web, macos, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: dist, merge-multiple: true }
+      - run: cd dist && sha256sum * > SHA256SUMS
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenStats graph</title>
+<style>html, body { margin: 0; height: 100%; overflow: hidden; } canvas { display: block; width: 100vw; height: 100vh; }
+  html, body, canvas { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }</style>
+</head>
+<body>
+<canvas id="g"></canvas>
+<script type="module">
+  import { GraphWindow } from './openstats.js';
+  if (window.__TAURI__) {
+    // Tauri tear-off: the Rust side delivers the spec by event once this page is ready.
+    const { graphFromTauri } = await import('./tauri-shell.js');
+    await graphFromTauri(window.__TAURI__, GraphWindow, document.getElementById('g'), './openstats_host.wasm');
+  }
+  window.addEventListener('message', async (e) => {
+    if (!e.data || !e.data.json) return;
+    const canvas = document.getElementById('g');
+    const g = await GraphWindow.load('./openstats_host.wasm', canvas, e.data.json);
+    document.title = g.title;
+    const redraw = () => g.draw(window.innerWidth, window.innerHeight, window.devicePixelRatio || 1);
+    window.addEventListener('resize', redraw);
+    redraw();
+  });
+</script>
+</body>
+</html>

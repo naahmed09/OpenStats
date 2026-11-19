@@ -1,0 +1,15 @@
+MACRO
+Shift col amount
+  MCOLUMN col
+  MCONSTANT amount
+  ARGS label
+  col = col + amount
+  If ISSET(label)
+    K40 = 1
+  EndIf
+MEND
+SET C1
+10 20 30
+END
+%Shift C1; Amount 5.
+%Shift C1 1; Label 'x'.

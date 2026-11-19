@@ -1,0 +1,19 @@
+# String variables, single and double quotes, MTEXT arguments
+MACRO
+Greet who
+  MTEXT who greeting
+  greeting = 'Hello, ' + who          # single quotes build a string
+  S5 = greeting + "!"                 # double quotes too
+  S6 = "She said ""hi"""              # doubled quotes inside a string
+  Let K20 = S5                        # a constant can hold text
+MEND
+
+%Greet 'World'
+%Greet "Minitab"
+Let S1 = 'abc'
+IF S1 = "abc"
+  Let K21 = 1
+ELSE
+  Let K21 = 0
+ENDIF
+PRINT S5 S6

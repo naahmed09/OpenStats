@@ -1,0 +1,25 @@
+# Classic and modern subcommand layouts, all with trailing periods
+READ C1 C2
+1 2.1
+2 3.9
+3 6.2
+4 7.8
+5 10.1
+END
+
+Regress C2 1 C1;
+  Fits C3;
+  Residuals C4;
+  Constant;
+  MSE K1;
+  RSquared K2.
+
+# the same model on one line, then the modern form
+REGRESS C2 1 C1; FITS C5; RSQUARED K3.
+Regress;
+  Response C2;
+  Nodefault;
+  Continuous C1;
+  Terms C1;
+  Rsquared K4.
+Describe C2.

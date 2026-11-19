@@ -1,0 +1,21 @@
+/target
+/dist
+**/*.rs.bk
+.DS_Store
+# Official NIST StRD files are dropped in locally (see tests/fixtures/nist/README.md)
+/tests/fixtures/nist/*.dat
+
+# release output
+/dist/
+/openstats-desktop/web/openstats_host.wasm
+/openstats-desktop/tauri/src-tauri/target/
+/openstats-desktop/tauri/src-tauri/gen/
+/openstats-desktop/native/target/
+/openstats-desktop/native/Cargo.lock
+
+# local snapshots
+*.zip
+
+# editor and local leftovers
+/.idea/
+/_to_delete/

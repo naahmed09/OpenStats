@@ -1,0 +1,22 @@
+[package]
+name = "openstats-math"
+description = "OpenStats numerical kernel: dense and sparse linear algebra, special functions, distributions, optimizers and random numbers (std only)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+readme.workspace = true
+
+[dependencies]
+# std only. The optional dependency is OpenStats's own core crate, used to
+# register distribution functions with the formula calculator.
+openstats-core = { workspace = true, optional = true }
+
+[features]
+default = ["formula"]
+formula = ["dep:openstats-core"]
+
+[lints]
+workspace = true

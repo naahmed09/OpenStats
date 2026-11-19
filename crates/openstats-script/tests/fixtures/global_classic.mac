@@ -1,0 +1,16 @@
+# ---------------------------------------------------------------
+# Classic Minitab global macro: the name is on the line after GMACRO
+# ---------------------------------------------------------------
+GMACRO
+Squares
+Note This macro's job: fill C1 with squares and add them up.  Don't panic.
+  MCONSTANT n total
+  Let n = 5
+  Let total = 0
+  Name C1 'Square'
+  Do K1 = 1:n
+    Let C1(K1) = K1 ** 2     # element assignment
+    Let total = total + C1(K1)
+  EndDo
+  Let K10 = total            // keep the result in K10
+ENDMACRO

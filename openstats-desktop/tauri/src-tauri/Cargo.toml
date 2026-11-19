@@ -1,0 +1,30 @@
+# NOT part of the OpenStats workspace: this crate depends on Tauri and the crates.io
+# registry, whereas the workspace itself is std-only. The empty [workspace] table
+# keeps cargo from treating it as a workspace member.
+#
+# Status: written against the Tauri v2 API but NOT compiled or run in the build
+# environment (no network, no registry). Treat it as unverified until built.
+[package]
+name = "openstats-tauri"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+description = "Tauri v2 desktop shell for OpenStats"
+publish = false
+
+[workspace]
+
+# The executable name is what macOS shows in the Dock and menu bar during `cargo tauri dev`.
+[[bin]]
+name = "OpenStats"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-clipboard-manager = "2"
+serde = { version = "1", features = ["derive"] }

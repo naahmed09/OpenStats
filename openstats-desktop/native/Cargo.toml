@@ -1,0 +1,43 @@
+# The native desktop app: a real window, no browser, web view or JavaScript.
+#
+# NOT part of the OpenStats workspace: it depends on windowing crates from crates.io, whereas the
+# workspace itself is std-only. Everything that is OpenStats (workspace, dialogs, charts, input
+# handling, file formats, actions) lives in `openstats-host::native` and is tested there; this crate
+# only adapts an operating system window to it.
+#
+# Status: written against winit 0.30, softbuffer 0.4, fontdue 0.9, muda 0.15, rfd 0.15 and
+# arboard 3, but NOT compiled in the environment that produced it (no registry access). Treat
+# it as unverified until built; expect small API fixes.
+[package]
+name = "openstats"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0 OR MIT"
+description = "OpenStats native desktop application"
+publish = false
+
+[workspace]
+
+[[bin]]
+name = "OpenStats"
+path = "src/main.rs"
+
+[dependencies]
+openstats-host = { path = "../../crates/openstats-host" }
+openstats-charts = { path = "../../crates/openstats-charts" }
+winit = "0.30"
+softbuffer = "0.4"
+fontdue = "0.9"
+muda = "0.15"
+rfd = "0.15"
+arboard = "3"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.5"
+objc2-foundation = { version = "0.2", features = ["NSData"] }
+objc2-app-kit = { version = "0.2", features = ["NSApplication", "NSImage", "NSResponder"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true

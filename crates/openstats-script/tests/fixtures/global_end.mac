@@ -1,0 +1,8 @@
+// A global macro that is closed with END and has its name on the GMACRO line
+GMACRO Triangular
+  MCONSTANT i
+  Do i = 1:6
+    C2(i) = i * (i + 1) / 2
+  EndDo
+  K11 = SUM(C2)
+END

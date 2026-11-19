@@ -1,0 +1,19 @@
+[package]
+name = "openstats-charts"
+description = "OpenStats 2D chart engine: scales, tick generation, font metrics, scene graph, SVG / canvas-command / PNG renderers and statistical and quality plot builders (std only)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+readme.workspace = true
+
+[dependencies]
+# No graphics, font or charting crates: only OpenStats's own kernel.
+openstats-core = { workspace = true }
+openstats-math = { workspace = true }
+openstats-stats = { workspace = true }
+
+[lints]
+workspace = true

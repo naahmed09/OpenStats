@@ -1,0 +1,10 @@
+[alias]
+# Test every std-only logic crate (no network needed).
+t = "test --workspace"
+# Lint gate used in CI.
+lint = "clippy --workspace --all-targets -- -D warnings"
+
+[target.wasm32-unknown-unknown]
+# getrandom-free, std-only crates: nothing special needed beyond a larger stack
+# for deep recursive parsers (macro interpreter, JSON) running in the browser.
+rustflags = ["-C", "link-arg=-zstack-size=4194304"]

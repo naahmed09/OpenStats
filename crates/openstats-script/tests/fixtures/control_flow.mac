@@ -1,0 +1,42 @@
+GMACRO
+Flow
+  MCONSTANT i j count
+  # nested DO loops with a step
+  Let count = 0
+  Do i = 1:9/2
+    Do j = 10:1/-3
+      count = count + 1
+    EndDo
+  EndDo
+  K30 = count
+
+  # WHILE with IF / ELSEIF / ELSE
+  Let K31 = 0
+  Let i = 0
+  While i < 10
+    Let i = i + 1
+    If i = 3
+      Let K31 = K31 + 100
+    ElseIf i < 3
+      Let K31 = K31 + 1
+    Else
+      Let K31 = K31 + 0.5
+    EndIf
+  EndWhile
+
+  # GOTO and labels in three spellings
+  Let K32 = 0
+  MLABEL again
+  K32 = K32 + 1
+  If K32 < 4
+    Goto again
+  EndIf
+  Goto 10
+  K32 = -1
+  Label 10
+  K33 = 7
+  Goto done
+  K33 = -1
+  done:
+  K34 = K32 * 10 + K33
+ENDMACRO

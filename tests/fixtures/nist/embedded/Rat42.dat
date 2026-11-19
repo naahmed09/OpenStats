@@ -1,0 +1,37 @@
+NIST/ITL StRD
+Dataset Name:  Rat42.dat   (Rat42.dat)
+Procedure:     Nonlinear Least Squares Regression
+Reference:     NIST StRD nonlinear regression suite
+Data:          1 Response  (y)
+               1 Predictor (x)
+               9 Observations
+Model:         Sigmoidal Class
+               3 Parameters (b1 and b2 and b3)
+
+               y = b1 / (1+exp[b2-b3*x]) + e
+Note:          Reconstructed by OpenStats because the official file could not be downloaded in the
+               build environment. Certified values below were recomputed independently in exact
+               rational / 80-digit decimal arithmetic. Replace with the official file when available.
+
+          Starting Values                  Certified Values
+
+          Start 1     Start 2           Parameter          Standard Deviation
+  b1 =          100            75         7.2462237576E+1       1.7340283401E+0
+  b2 =            1           2.5         2.6180768402E+0       8.8295217536E-2
+  b3 =          0.1          0.07         6.7359200066E-2       3.4465663377E-3
+
+Residual Sum of Squares:                    8.0565229338E+0
+Residual Standard Deviation:                1.1587725499E+0
+Degrees of Freedom:                                6
+Number of Observations:                            9
+
+Data:   y             x
+   8.93   9
+   10.8   14
+   18.59   21
+   22.33   28
+   39.35   42
+   56.11   57
+   61.73   63
+   64.62   70
+   67.08   79

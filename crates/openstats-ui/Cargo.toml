@@ -1,0 +1,22 @@
+[package]
+name = "openstats-ui"
+description = "OpenStats user-interface logic (std only): worksheet grid, Project Navigator, Session window, menus and analysis dialogs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+openstats-core = { workspace = true }
+openstats-charts = { workspace = true }
+openstats-stats = { workspace = true }
+openstats-script = { workspace = true }
+openstats-math = { workspace = true, features = ["formula"] }
+
+[lints]
+workspace = true
