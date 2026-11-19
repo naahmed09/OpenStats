@@ -176,9 +176,11 @@ fn the_web_pages_only_reference_files_the_bundle_ships() {
 
 #[test]
 fn the_packaging_scripts_pass_their_own_tests() {
+    // The shell scripts are exercised on Linux and macOS. On Windows `bash` is usually the WSL
+    // launcher (which fails when no distribution is installed), so the check is skipped there.
     let bash = std::process::Command::new("bash").arg("--version").output();
-    if bash.is_err() {
-        eprintln!("bash is not available; skipping the script tests");
+    if cfg!(windows) || !bash.map(|o| o.status.success()).unwrap_or(false) {
+        eprintln!("a working bash is not available; skipping the script tests");
         return;
     }
     let out = std::process::Command::new("bash")
