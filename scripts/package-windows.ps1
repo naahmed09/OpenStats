@@ -35,15 +35,23 @@ function Invoke-Step([string] $Description, [scriptblock] $Block) {
 foreach ($tool in 'cargo', 'rustup', 'bash') {
   if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) { throw "'$tool' is required but was not found on PATH" }
 }
+# On GitHub's Windows runners (and any PC with WSL) a bare `bash` is the WSL launcher, which fails
+# without a Linux distribution. Use the bash that ships with Git for Windows instead.
+$git = Get-Command git -ErrorAction SilentlyContinue
+if ($git) {
+  $gitBash = Join-Path (Split-Path -Parent (Split-Path -Parent $git.Source)) 'bin\bash.exe'
+  if (Test-Path $gitBash) { function bash { & $gitBash @args } }
+}
+$RootPosix = $Root -replace '\\', '/'
 & cargo tauri --version *> $null
 if ($LASTEXITCODE -ne 0) { throw 'The Tauri CLI is required: cargo install tauri-cli --version "^2" --locked' }
 
 $triple = if ($Arch -eq 'arm64') { 'aarch64-pc-windows-msvc' } else { 'x86_64-pc-windows-msvc' }
 $version = (Select-String -Path (Join-Path $Root 'Cargo.toml') -Pattern '^version = "(.*)"$' | Select-Object -First 1).Matches.Groups[1].Value
 
-Invoke-Step 'checking versions' { bash "$Root/scripts/check-versions.sh" }
+Invoke-Step 'checking versions' { bash "$RootPosix/scripts/check-versions.sh" }
 Invoke-Step "adding the $triple target" { rustup target add $triple }
-Invoke-Step 'building the web bundle' { bash "$Root/scripts/build-web.sh" }
+Invoke-Step 'building the web bundle' { bash "$RootPosix/scripts/build-web.sh" }
 
 $extra = @()
 if ($env:OPENSTATS_WIN_CERT_THUMBPRINT) {
