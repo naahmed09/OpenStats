@@ -24,8 +24,15 @@ ver="$(version)"
 run rustup target add aarch64-apple-darwin x86_64-apple-darwin
 "$ROOT/scripts/build-web.sh"
 
+# CI passes unset secrets as empty strings, and Tauri treats an empty identity as a request to
+# sign with nothing ("no identity found"). Drop the empty ones.
+for v in APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD; do
+  [ -n "${!v:-}" ] || unset "$v"
+done
 if [ -z "${APPLE_SIGNING_IDENTITY:-}" ]; then
-  warn "APPLE_SIGNING_IDENTITY is not set: the app will be unsigned"
+  warn "APPLE_SIGNING_IDENTITY is not set: the app gets an ad-hoc signature (no developer identity)"
+  # "-" is an ad-hoc signature: it keeps the universal binary launchable on Apple Silicon.
+  export APPLE_SIGNING_IDENTITY="-"
 fi
 
 log "building the universal app bundle"
