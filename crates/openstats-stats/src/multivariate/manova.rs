@@ -106,9 +106,17 @@ pub fn manova(
     }
     let v = n - rank_full;
     let e_full = sscp(&dm.x, &y_cols)?;
-    let chol = Cholesky::new(&e_full).map_err(|_| {
-        StatsError::InvalidArgument("the error SSCP matrix is singular (responses are linearly dependent)".into())
-    })?;
+    let singular =
+        || StatsError::InvalidArgument("the error SSCP matrix is singular (responses are linearly dependent)".into());
+    let chol = Cholesky::new(&e_full).map_err(|_| singular())?;
+    // Exactly dependent responses leave rounding noise in the last pivot, which can come out
+    // slightly positive on some processors; judge each pivot against its own variance instead.
+    for i in 0..e_full.rows() {
+        let pivot = chol.l()[(i, i)];
+        if pivot * pivot <= 1e-10 * e_full[(i, i)] {
+            return Err(singular());
+        }
+    }
 
     let mut terms = Vec::new();
     for t in &dm.terms {
